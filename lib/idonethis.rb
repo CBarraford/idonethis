@@ -27,7 +27,6 @@ module IDoneThis
     IDoneThis.config.sender.send(message)
   end
 
-
   def self.get_password(prompt)
     if STDIN.respond_to?(:noecho)
       puts prompt.yellow
