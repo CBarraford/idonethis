@@ -6,3 +6,9 @@ LineLength:
 
 MethodLength:
   Max: 30
+
+CyclomaticComplexity:
+  Enabled: false
+
+HandleExceptions:
+  Enabled: false

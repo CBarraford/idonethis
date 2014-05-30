@@ -1,37 +1,10 @@
 #!/usr/bin/env ruby
 
-require 'idonethis'
-
-def send_message
-  IDoneThis.send(ARGV[0])
+begin
+  # look for local copy first for dev purposes
+  require_relative '../lib/idonethis'
+rescue LoadError
+  require 'idonethis'
 end
 
-def configure
-  ARGV.clear
-
-  puts 'Configure idonethis'
-  puts '-------------------'
-
-  puts 'Your Gmail username:'
-  username = gets.strip
-
-  puts 'Your Gmail password:'
-  password = gets.strip
-
-  puts 'Your IDoneThis e-mail address (the e-mail you send IDoneThis messages to):'
-  idonethis_address = gets.strip
-
-  IDoneThis.config.username = username
-  IDoneThis.config.password = password
-  IDoneThis.config.idonethis_address = idonethis_address
-  IDoneThis.config.sender = 'GmailSender'
-  IDoneThis.config.save
-
-  puts "Done! Call idonethis \"message\" to tell IDoneThis what you done did."
-end
-
-if ARGV[0] == 'config' || !IDoneThis.config.present
-  configure
-else
-  send_message
-end
+IDoneThis::Cli.start(ARGV)

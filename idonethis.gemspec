@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(/^(test|spec|features)/)
   gem.require_paths = ['lib']
 
-  %w( ruby-gmail activesupport hashie mime syck ).each do |g|
+  %w( ruby-gmail activesupport hashie mime syck thor colorize ).each do |g|
     gem.add_runtime_dependency g
   end
 
