@@ -86,6 +86,7 @@ module IDoneThis
       end
 
       def ask_username
+        username = nil
         puts 'Your Gmail email address: '.yellow
         regex = username =~ "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$"
         until username =~ /#{regex}/i ? true : false
