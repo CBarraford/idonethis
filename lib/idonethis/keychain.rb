@@ -1,7 +1,7 @@
 module IDoneThis
   class KeyChain
     def self.add_generic_password(password)
-      unless password.nil? || password.length > 0
+      unless password.nil? || password.length == 0
         `security add-generic-password -a $USER -s idonethis -l "idonethis Gmail Password" -U -w "#{password}"`
       end
     end

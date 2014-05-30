@@ -6,7 +6,7 @@ module IDoneThis
   class Cli < Thor
     package_name 'IDoneThis'
 
-    desc 'task', 'add completed task to idonethis'
+    desc 'task', 'Add completed task to idonethis'
     option :editor,
            type: :boolean,
            default: false,
@@ -26,7 +26,6 @@ module IDoneThis
       else
         msg = editor
       end
-      puts msg, msg.class
       if msg.nil? || msg.length == 0
         puts 'No message to send. Input a message via stdin, -e, or -m'.red
       else
@@ -37,9 +36,15 @@ module IDoneThis
     default_task :task
 
     desc 'configure', 'configure idonethis'
-    option :username, desc: 'your gmail email address', aliases: '-u'
-    option :password, desc: 'your gmail password', aliases: '-p'
-    option :team, desc: 'your idonethis team name or idonethis team email address', aliases: '-t'
+    option :username,
+           desc: 'Your gmail email address',
+           aliases: '-u'
+    option :password,
+           desc: 'Your gmail password',
+           aliases: '-p'
+    option :team,
+           desc: 'Your idonethis team name or idonethis team email address',
+           aliases: '-t'
     def configure
       puts 'Configure idonethis'.magenta
       puts '-------------------'.magenta
@@ -65,11 +70,11 @@ module IDoneThis
       unless team
         puts 'Your IDoneThis team name ( or full email address ): '.yellow
         team = STDIN.gets.strip
-        team += '@team.idonethis.com' unless team =~ /@/
       end
+      team += '@team.idonethis.com' unless team.nil? || team =~ /@/
 
       IDoneThis.config.username = username
-      IDoneThis.config.password = password unless password
+      IDoneThis.config.password = password unless password.nil? || password.length == 0
       IDoneThis.config.idonethis_address = team
       IDoneThis.config.sender = 'GmailSender'
       IDoneThis.config.save
