@@ -6,23 +6,31 @@ module IDoneThis
   class Cli < Thor
     package_name 'IDoneThis'
 
-    desc 'task', 'add finished task to idonethis'
-    option :editor, type: :boolean, default: false, aliases: '-e'
-    option :message, aliases: '-m'
+    desc 'task', 'add completed task to idonethis'
+    option :editor,
+           type: :boolean,
+           default: false,
+           desc: 'Use your favorite editor to write you task (default action)',
+           aliases: '-e'
+    option :message,
+           desc: 'Write a description of your completed task item',
+           aliases: '-m'
     def task
-      if options[:editor]
-        temp_file = Tempfile.new('idonethis_task')
-        editor = ENV['EDITOR'] || 'vi'
-        system "#{editor} #{temp_file.path}"
-        msg = File.read(temp_file.path)
-        if msg.length > 0
-          IDoneThis.send(msg)
-          puts 'Sent task'.green
-        else
-          puts 'No contents to send, exiting...'.red
-        end
+      msg = nil
+      if !STDIN.tty?
+        msg = $stdin.read
+      elsif options[:editor]
+        msg = editor
+      elsif options[:message]
+        msg = options[:message]
       else
-        IDoneThis.send(options[:message])
+        msg = editor
+      end
+      puts msg, msg.class
+      if msg.nil? || msg.length == 0
+        puts 'No message to send. Input a message via stdin, -e, or -m'.red
+      else
+        IDoneThis.send(msg)
         puts 'Sent task'.green
       end
     end
@@ -70,6 +78,15 @@ module IDoneThis
     end
 
     no_tasks do
+      def editor
+        temp_file = Tempfile.new('idonethis_task')
+        editor = ENV['EDITOR'] || 'vi'
+        system "#{editor} #{temp_file.path}"
+        msg = File.read(temp_file.path)
+        msg = nil if msg.length == 0
+        msg
+      end
+
       def ask_password
         passwd1, passwd2 = 1, 2 # init passwd vars so they don't match
         while passwd1 != passwd2

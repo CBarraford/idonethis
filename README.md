@@ -25,6 +25,7 @@ If you want to manually configure the gem, or change your configuration later, y
 Just call the following:
 
     idonethis -m "Talked to corporate - like a boss."
-    idonethis -e   # use your favorite editor to write your completed task
+    echo "Talked to corporate - like a boss" | idonethis
+    idonethis    # use your favorite editor to write your completed task
 
 It'll be logged in your IDoneThis.
