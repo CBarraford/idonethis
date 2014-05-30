@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.name          = 'idonethis'
   gem.version       = Idonethis::VERSION
   gem.authors       = ['Ryan Brunner', 'Chad Barraford']
-  gem.email         = ['ryan@ryanbrunner.com', 'chad@rstudio.com']
+  gem.email         = ['ryan@ryanbrunner.com', 'cbarraford@gmail.com']
   gem.description   = %q(Simple little command line tool for sending idonethis messages)
   gem.summary       = 'Sends messages to your idonethis using the e-mail client of your ' \
                       'choice (as long as your choice is gmail)'
