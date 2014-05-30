@@ -27,7 +27,7 @@ module IDoneThis
       File.open(FILE, 'w') {|f| f.write(yaml_data) }
     end
 
-    if RUBY_PLATFORM.downcase.include?("darwin")
+    if RUBY_PLATFORM.downcase.include?('darwin')
       def password
         IDoneThis::KeyChain.find_generic_password
       end
@@ -38,7 +38,7 @@ module IDoneThis
     end
 
     def sender
-      IDoneThis::Senders.const_get(self["sender"]).new
+      IDoneThis::Senders.const_get(self['sender']).new
     end
   end
 

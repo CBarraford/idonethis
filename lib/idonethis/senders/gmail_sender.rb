@@ -7,7 +7,7 @@ module IDoneThis
         Gmail.new(IDoneThis.config.username, IDoneThis.config.password) do |gmail|
           gmail.deliver do
             to IDoneThis.config.idonethis_address
-            subject "What I did today"
+            subject 'What I did today'
             text_part do
               body message
             end

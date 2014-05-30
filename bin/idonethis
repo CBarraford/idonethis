@@ -9,16 +9,16 @@ end
 def configure
   ARGV.clear
 
-  puts "Configure idonethis"
-  puts "-------------------"
+  puts 'Configure idonethis'
+  puts '-------------------'
 
-  puts "Your Gmail username:"
+  puts 'Your Gmail username:'
   username = gets.strip
 
-  puts "Your Gmail password:"
+  puts 'Your Gmail password:'
   password = gets.strip
 
-  puts "Your IDoneThis e-mail address (the e-mail you send IDoneThis messages to):"
+  puts 'Your IDoneThis e-mail address (the e-mail you send IDoneThis messages to):'
   idonethis_address = gets.strip
 
   IDoneThis.config.username = username
