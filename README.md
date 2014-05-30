@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/CBarraford/idonethis.svg?branch=master)](https://travis-ci.org/CBarraford/idonethis)
 # Idonethis
 
 A simple little tool for sending IDoneThis messages.
@@ -10,7 +11,7 @@ Install idonethis by running:
 
 Configure idonethis by calling:
 
-    idonethis config
+    idonethis configure
 
 If you want to manually configure the gem, or change your configuration later, you can find it in `~/.idonethisrc`. Here's the options you can set:
 
@@ -23,6 +24,7 @@ If you want to manually configure the gem, or change your configuration later, y
 
 Just call the following:
 
-    idonethis "Talked to corporate - like a boss."
+    idonethis -m "Talked to corporate - like a boss."
+    idonethis -e   # use your favorite editor to write your completed task
 
 It'll be logged in your IDoneThis.
