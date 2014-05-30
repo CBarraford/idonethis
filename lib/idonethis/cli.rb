@@ -2,12 +2,6 @@ require 'thor'
 require 'tempfile'
 require 'colorize'
 
-begin
-  require 'io/console'
-rescue LoadError
-  # do nothing
-end
-
 module IDoneThis
   class Cli < Thor
     package_name 'IDoneThis'
@@ -51,13 +45,23 @@ module IDoneThis
       # get the password via input
       # have the user write it twice to make sure we have the correct password
       unless password
-        passwd1, passwd2 = 1, 2 # init passwd vars so they don't match
-        while passwd1 != passwd2
-          passwd1 = get_password('Your Gmail password: ')
-          passwd2 = get_password('Your Gmail password (again): ')
-          puts 'Passwords do not match, try again'.red if passwd1 != passwd2
+        # figure out if we should store the gmail password locally
+        if RUBY_PLATFORM.downcase.include?('darwin')
+          # always store password on Macs, they store in the keychain
+          store_password = true
+        else
+          puts 'Store gmail password in configuration file? (y/n)'.yellow
+          store_password = STDIN.gets.strip.downcase == 'y'
         end
-        password = passwd1
+        if store_password
+          passwd1, passwd2 = 1, 2 # init passwd vars so they don't match
+          while passwd1 != passwd2
+            passwd1 = IDoneThis.get_password('Your Gmail password: ')
+            passwd2 = IDoneTHis.get_password('Your Gmail password (again): ')
+            puts 'Passwords do not match, try again'.red if passwd1 != passwd2
+          end
+          password = passwd1
+        end
       end
 
       unless team
@@ -67,7 +71,7 @@ module IDoneThis
       end
 
       IDoneThis.config.username = username
-      IDoneThis.config.password = password
+      IDoneThis.config.password = password unless password
       IDoneThis.config.idonethis_address = team
       IDoneThis.config.sender = 'GmailSender'
       IDoneThis.config.save
@@ -76,15 +80,6 @@ module IDoneThis
     end
 
     no_tasks do
-      def get_password(prompt)
-        if STDIN.respond_to?(:noecho)
-          puts prompt.yellow
-          STDIN.noecho(&:gets).strip
-        else
-          `read -s -p "#{prompt}" password; echo $password`.strip
-        end
-      end
-
       def ask_username
         username = nil
         puts 'Your Gmail email address: '.yellow
