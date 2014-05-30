@@ -22,6 +22,6 @@ Gem::Specification.new do |gem|
   end
 
   %w( rake rubocop ).each do |g|
-    spec.add_development_dependency g
+    gem.add_development_dependency g
   end
 end
