@@ -17,8 +17,7 @@ Gem::Specification.new do |gem|
   gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
   gem.require_paths = ["lib"]
 
-  gem.add_runtime_dependency 'ruby-gmail'
-  gem.add_runtime_dependency 'activesupport'
-  gem.add_runtime_dependency 'hashie'
-  gem.add_runtime_dependency 'mime'
+  %w( ruby-gmail activesupport hashie mime syck ).each do |g|
+    gem.add_runtime_dependency g
+  done
 end
