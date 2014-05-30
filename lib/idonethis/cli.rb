@@ -91,7 +91,7 @@ module IDoneThis
         passwd1, passwd2 = 1, 2 # init passwd vars so they don't match
         while passwd1 != passwd2
           passwd1 = IDoneThis.get_password('Your Gmail password: ')
-          passwd2 = IDoneTHis.get_password('Your Gmail password (again): ')
+          passwd2 = IDoneThis.get_password('Your Gmail password (again): ')
           puts 'Passwords do not match, try again'.red if passwd1 != passwd2
         end
         passwd1
@@ -100,7 +100,7 @@ module IDoneThis
       def ask_username
         username = nil
         puts 'Your Gmail email address: '.yellow
-        regex = username =~ "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$"
+        regex = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$"
         until username =~ /#{regex}/i ? true : false
           username = STDIN.gets.strip
           # check if email address given is valid email
