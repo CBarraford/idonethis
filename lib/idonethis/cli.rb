@@ -36,9 +36,7 @@ module IDoneThis
       puts 'Configure idonethis'.magenta
       puts '-------------------'.magenta
 
-      username = options[:username] || nil
-      password = options[:password] || nil
-      team = options[:team] || nil
+      username, password, team = options[:username], options[:password], options[:team]
 
       username = ask_username unless username
 
@@ -51,17 +49,9 @@ module IDoneThis
           store_password = true
         else
           puts 'Store gmail password in configuration file? (y/n)'.yellow
-          store_password = STDIN.gets.strip.downcase == 'y'
+          store_password = STDIN.gets.strip.downcase == 'y' ? true : false
         end
-        if store_password
-          passwd1, passwd2 = 1, 2 # init passwd vars so they don't match
-          while passwd1 != passwd2
-            passwd1 = IDoneThis.get_password('Your Gmail password: ')
-            passwd2 = IDoneTHis.get_password('Your Gmail password (again): ')
-            puts 'Passwords do not match, try again'.red if passwd1 != passwd2
-          end
-          password = passwd1
-        end
+        password = ask_password if store_password
       end
 
       unless team
@@ -80,6 +70,16 @@ module IDoneThis
     end
 
     no_tasks do
+      def ask_password
+        passwd1, passwd2 = 1, 2 # init passwd vars so they don't match
+        while passwd1 != passwd2
+          passwd1 = IDoneThis.get_password('Your Gmail password: ')
+          passwd2 = IDoneTHis.get_password('Your Gmail password (again): ')
+          puts 'Passwords do not match, try again'.red if passwd1 != passwd2
+        end
+        passwd1
+      end
+
       def ask_username
         username = nil
         puts 'Your Gmail email address: '.yellow

@@ -25,7 +25,7 @@ module IDoneThis
     def save
       configuration_details = to_hash
       # if darwin, don't save password in yaml file
-      configuration_details.delete("password") if RUBY_PLATFORM.downcase.include?('darwin')
+      configuration_details.delete('password') if RUBY_PLATFORM.downcase.include?('darwin')
       yaml_data = YAML.dump(configuration_details)
       File.open(FILE, 'w') { |f| f.write(yaml_data) }
       File.chmod(0600, FILE)
