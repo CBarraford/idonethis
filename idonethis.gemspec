@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
 
   %w( ruby-gmail activesupport hashie mime syck ).each do |g|
     gem.add_runtime_dependency g
-  done
+  end
 
   %w( rake rubocop ).each do |g|
     spec.add_development_dependency g
