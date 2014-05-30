@@ -23,8 +23,8 @@ module IDoneThis
     end
 
     def save
-      yaml_data = YAML::dump(to_hash)
-      File.open(FILE, 'w') {|f| f.write(yaml_data) }
+      yaml_data = YAML.dump(to_hash)
+      File.open(FILE, 'w') { |f| f.write(yaml_data) }
     end
 
     if RUBY_PLATFORM.downcase.include?('darwin')

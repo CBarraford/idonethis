@@ -30,7 +30,6 @@ def configure
   puts "Done! Call idonethis \"message\" to tell IDoneThis what you done did."
 end
 
-
 if ARGV[0] == 'config' || !IDoneThis.config.present
   configure
 else
